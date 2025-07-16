@@ -5,7 +5,7 @@ import StarRating from './StarRating'
 
 const Testimonial = () => {
   return (
-    <div className='flex flex-col items-center px-6 md:px-16 lg:px-16 lg:px-24 bg-slate-50
+    <div className='flex flex-col items-center px-6 md:px-16 lg:px-16 bg-slate-50 
     pt-20 pb-30'>
         <Title title="what our Guests Say" subTitle="Discover why discerning travelers consistently 
         choose QuickStay for their exclusive amd luxurious accomadations around the world."/>
