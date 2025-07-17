@@ -47,22 +47,34 @@ const MyBookings = () => {
             </div>
             
             {/* ------Date & Timing------ */}
-            <div className='mt-4 md:mt-0 flex flex-col gap-1.5'>
-              <p className='font-medium'>Check-in</p>
-              <p>{new Date(booking.checkInDate).toLocaleDateString()}</p>
-              <p className='font-medium mt-2'>Check-out</p>
-              <p>{new Date(booking.checkOutDate).toLocaleDateString()}</p>
+            <div className='flex flex-row md:items-center md:gap-12 mt-3 gap-8'>
+                <div>
+                    <p>Check-In:</p>
+                    <p className='className="text-gray-500 text-sm"'>
+                        {new Date(booking.checkInDate).toDateString()}
+                    </p>
+                </div>
+                <div>
+                    <p>Check-Out:</p>
+                    <p className='className="text-gray-500 text-sm"'>
+                        {new Date(booking.checkOutDate).toDateString()}
+                    </p>
+                </div>
             </div>
             
             {/* ------Payment Status------ */}
-            <div className='mt-4 md:mt-0 flex items-start justify-end'>
-              <span className={`px-3 py-1 rounded-full text-sm ${
-                booking.paymentStatus === 'paid' 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-yellow-100 text-yellow-800'
-              }`}>
-                {booking.paymentStatus}
-              </span>
+            <div className='flex flex-col items-start justify-center pt-3'>
+               <div className='flex items-center gap-2'>
+                  <div className={`h-3 w-3 rounded-full ${booking.isPaid ? "bg-green-500" : "bg-red-500"}`}></div>
+                    <p className={`text-sm ${booking.isPaid ? "text-green-500" : "text-red-500"}`}>
+                    {booking.isPaid ? "Paid" : "Unpaid"}
+                   </p>
+                </div>
+                {!booking.isPaid && (
+                    <button className='px-4 py-1.5 mt-4 text-xs border border-gray-400 rounded-full hover:bg-gray-50 transition-all cursor-pointer'>
+                        Pay Now
+                    </button>
+                )}
             </div>
           </div>
         ))}
