@@ -8,6 +8,7 @@ import userRouters from "./routes/userRoutes.js";
 import hotelRouter from "./routes/hotelRoutes.js";
 import connectCloudinary from "./configs/cloudinary.js";
 import roomRouter from "./routes/roomeRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js";
 
 connectDB()
 connectCloudinary();
@@ -26,6 +27,7 @@ app.get('/',(req, res)=> res.send("Api is working "))
 app.use('/api/user', userRouters)
 app.use('/api/hotels', hotelRouter)
 app.use('/api/room', roomRouter)
+app.use('/api/booking', bookingRouter)
 
 const PORT = process.env.PORT || 3000;
 
