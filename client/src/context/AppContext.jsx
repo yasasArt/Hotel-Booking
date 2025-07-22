@@ -20,28 +20,30 @@ export const AppProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchUser = useCallback(async () => {
-        try {
-            setIsLoading(true);
-            const { data } = await axios.get('/api/User', {
-                headers: { Authorization: `Bearer ${await getToken()}` }
-            });
-            
-            if (data.success) {
-                setIsOwner(data.role === "hotelOwner");
-                setSearchedCities(data.recentSearchedCities || []);
-            } else {
-                // Retry fetching user details after 5 seconds
-                setTimeout(() => {
-                    fetchUser();
-                }, 5000);
-            }
-        } catch (error) {
-            const errorMessage = error.response?.data?.message || error.message || "Failed to fetch user data";
-            toast.error(errorMessage);
-        } finally {
-            setIsLoading(false);
+    try {
+        setIsLoading(true);
+        const token = await getToken();
+        const { data } = await axios.get('/api/User', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        
+        if (data.success) {
+            setIsOwner(data.role === "hotelOwner");
+            setSearchedCities(data.recentSearchedCities || []);
+        } else {
+            setTimeout(() => {
+                fetchUser();
+            }, 5000);
         }
-    }, [getToken]);
+    } catch (error) {
+        // console.error('Full error:', error);
+        // console.error('Error response:', error.response);
+        const errorMessage = error.response?.data?.message || error.message || "Failed to fetch user data";
+        toast.error(errorMessage);
+    } finally {
+        setIsLoading(false);
+    }
+}, [getToken]);
 
     useEffect(() => {
         if (user) {
